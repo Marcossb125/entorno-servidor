@@ -1,3 +1,22 @@
 .centro {
-    align-items: center;
+    align-items:center;
+    display:flex;
+    flex-flow:column wrap;
+    justify-content: center;
+    border: solid 5px black;
+    height:100%;
+    width:100%;
+    
+}
+.error {
+    color:red;
+}
+.contenedor-principal {
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    padding: 30px;
+    box-sizing: border-box;
+    align-items:center;
+    height:100%;
+    width:100%;
 }

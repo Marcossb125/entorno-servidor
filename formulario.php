@@ -11,18 +11,7 @@ $emailErr = "";
 $urlErr = "";
 $nombreErr = "";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (empty($_POST["email"]) || empty($_POST["nombre"]) || empty($_POST["url"]) || empty($_POST["sexo"])) {
-        global $error;
-        $error="Todos los campos requeridos deben completarse";
-     }
-    $email = $_POST["email"];
-    $nombre = $_POST["nombre"];
-    $url = $_POST["url"];
-    $comentario = $_POST["comentario"];
-    $genero = $_POST["sexo"];
-    validar($email, $nombre, $url, $comentario, $genero);
-}
+
 
 function validar (string $email, string $nombre, string $url, string $comentario, string $genero) {
     $comentarioV = stripslashes(trim($comentario));

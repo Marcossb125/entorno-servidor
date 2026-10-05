@@ -1,29 +1,40 @@
 <?php
-$a = null;
-$b = null;
-$c = null;
+$error = "";
 
-$xa = "";
-$xb = "";
 
-$peticion = "";
 
-if ($_SERVER['REQUEST_METHOD']==="POST") {
-    $peticion = $_POST["peticion"];
+function resolverEcuacion (int $a, int $b, int $c): array|bool|null {
 
-    if ($peticion = "ecuacion") {
-        $a = $_POST["a"];
-        $b = $_POST["b"];
-        $c = $_POST["c"];
-        resolverEcuacion($a, $b, $c);
-    }
+    if ($a === 0) {
+        $error = "La ecuación no es de segundo grado";
+        return null;
+    } else {
+    $primeraParte = $b*$b - 4 * $a * $c;
+
+        if ($primeraParte > 0) {
+            $xa = (-$b + sqrt($primeraParte))/(2*$a);
+                $xb = (-$b - sqrt($primeraParte))/(2*$a);
+
+                $soluciones = array(
+                    $xa,
+                    $xb
+                );
+                return $soluciones;
+            
+        }
+         
+        return false;
+     }
 }
 
-function resolverEcuacion (string $a, string $b, string $c) {
-    global $xa;
-    global $xb;
-    $xa = (-$b + sqrt($b*$b - 4 * $a * $c)/(2*$a));
-    $xb = (-$b - sqrt($b*$b - 4 * $a * $c)/(2*$a));
+function resolverPalindromo (string $palabra): bool {
+    $vuelta = strrev($palabra);
+
+    if ($vuelta === $palabra) {
+        return true;
+    } else {
+        return false;
+    }
 }
 ?>
 
