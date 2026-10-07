@@ -36,6 +36,24 @@ function resolverPalindromo (string $palabra): bool {
         return false;
     }
 }
+
+function resolverArrayNumeros (array|string $array, int|string $limite): array {
+
+    $numeros = is_array($array) ? $array : [$array];
+    $limite = (int) $limite;
+    $reducido = array();
+
+    foreach ($numeros as $numero) {
+        $numero = (int) $numero;
+
+        if ($numero <= $limite) {
+            $reducido[] = $numero;
+        }
+    }
+
+    return $reducido;
+
+}
 ?>
 
 

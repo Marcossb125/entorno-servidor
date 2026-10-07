@@ -5,7 +5,7 @@ include __DIR__ . "/matematicas.php";
 
 $resultado_ecuacion = null;
 $resultado_palindromo = null;
-$resultado_arrayNumeros = null;
+$resultado_arrayNumeros = array();
 
 $a = null;
 $b = null;
@@ -15,6 +15,7 @@ $palabra = "";
 
 session_start();
 $arrayNumeros = $_SESSION["arrayNumeros"] ?? [];
+$reducido = array();
 
 if ($_SERVER['REQUEST_METHOD']==="POST") {
     $peticion = $_POST["peticion"];
@@ -37,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD']==="POST") {
         $_SESSION["arrayNumeros"] = $arrayNumeros;
 
         if ($_POST["limite"]) {
-            $resultado_arrayNumeros = resolverArrayNumeros($n, $limite);
+            $resultado_arrayNumeros = resolverArrayNumeros($arrayNumeros, $limite);
+            $reducido = $resultado_arrayNumeros;
         }
     }
 }
@@ -126,15 +128,18 @@ if ($_SERVER['REQUEST_METHOD']==="POST") {
 
                 <br></br>
 
-                <label><?php foreach($arrayNumeros as $numero) { print("$numero, ");}?>
+                <label><?php foreach ($arrayNumeros as $numero) { print("$numero, "); } ?></label>
 
                 <br></br>
 
                 <input type="hidden" name="peticion" id="peticion" value="arrayNumeros"></input>
 
-                <button type="submit">Añadir numero/Terminar</button>
-
+                <button type="submit">Meter numero/Terminar</button>
             </form>
+
+            <h1>Array reducido:</h1>
+
+            <p><?php if (count($reducido) > 0) { foreach ($reducido as $numero) { print("$numero, "); } } ?></p>
         </div>
     </div>
 </body>
