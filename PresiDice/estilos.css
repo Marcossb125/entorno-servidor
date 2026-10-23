@@ -1,0 +1,11 @@
+.centrar {
+    display: flex;
+    justify-content: center;
+    flex-flow: column wrap;
+    align-items: center;
+    height: 90vh;
+}
+
+.circulos {
+    flex-direction: row;
+}

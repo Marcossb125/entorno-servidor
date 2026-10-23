@@ -1,12 +1,12 @@
 <?php
 //Aplicacion nivel de dificultad: Se elige el numero de circulos entre 4 y 8 y el numero de colores entre 4 y 8
 // colores: azul, rojo, verde, amarillo, naranja, rosa, morado, gris
-session_start();
+
 
     
 
     function pintar_circulo(int $circulos, array $colores, int $ncolores): array {
-        global $colores;
+        
         $presiDice = array();
 
         for ($k = 0; $k < $circulos; $k++) {
@@ -14,20 +14,25 @@ session_start();
             array_push($presiDice, $colores[$color]);
         }
 
+        print("<br> </br>");
+
         $_SESSION['combinacion'] = $presiDice;
 
-        
+        $_SESSION['colores'] = $ncolores;
 
-        foreach ($colores as $circulo):
+        $_SESSION['turno'] = 0;
 
-        
-        print('<svg width="120" height="120">      
-        <circle cx="60" cy="60" r="50" fill="<?php echo $circulo; ?>"/></circle>
-        </svg>');
+        $_SESSION['combinacionUsuario'] = array();
 
-        endforeach;
+        for ($k = 0; $k < $circulos; $k++) {
+            array_push($_SESSION['combinacionUsuario'], "black");
+        }
 
+         $_SESSION['estado'] = true;
 
+        var_dump($_SESSION['combinacion']);
         return $presiDice;
+
+        
     }
 ?>
