@@ -1,18 +1,17 @@
-<?php 
-        $usuario = "pepe";
-
-        $password = password_hash("1234", PASSWORD_BCRYPT);
+<?php include "usuarios.php";
 
         $err = "";
 
         if (isset($_POST['usuario'])) {
-            if ($usuario === $_POST['usuario'] && password_verify($_POST['password'], $password)) {
+            if (revisarUsuario($_POST['usuario'], $_POST['password'])) {
                 header("Location: presiDice.php");
+                exit;
             } else {
-                $err = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                $err = "Nombre de usuario o contraseña incorrectos.";
             }
         } else if (isset($_POST['register'])) {
             header("Location: registro.php");
+            exit;
         }
     ?>
 <!DOCTYPE html>
@@ -34,13 +33,20 @@
                 <label>Nombre de usuario</label>
                 <input id = "usuario" name="usuario"></input>
 
+                <br></br>
+
                 <label>Contraseña</label>
                 <input type="password" id="password" name="password"></input>
 
+                <br></br>
+
                 <input type="hidden" id = "origen" name="origen" value="erPresi"></input>
 
-                <button type="submit">Login/Register</button>
+                <button type="submit">Login</button>
             </form>
+            <?php if ($err != ""): ?>
+                <p style="color: red;"><?php echo $err; ?></p>
+            <?php endif; ?>
 
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <button name="register">Registrarse</button>
