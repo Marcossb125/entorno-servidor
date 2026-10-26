@@ -10,7 +10,7 @@ if (isset($_POST['nombreR'], $_POST['password'])) {
         }
     } catch (Exception $e) {
         $mensaje = $e instanceof PDOException
-            ? "No se pudo guardar el usuario. Comprueba la conexión y la estructura de la base de datos."
+            ? "No se pudo guardar el usuario"
             : $e->getMessage();
     }
 }
