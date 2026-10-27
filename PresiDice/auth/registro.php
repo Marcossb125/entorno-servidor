@@ -1,5 +1,9 @@
 <?php include "usuarios.php";
 
+if (isset($_SESSION['usuario'])) {
+        header("Location: ../juego/presiDice1.php");
+    }
+
 $mensaje = "";
 
 if (isset($_POST['nombreR'], $_POST['password'])) {

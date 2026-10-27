@@ -1,4 +1,9 @@
-<?php include "../privao/configuracion.php";
+<?php include "configuracion.php"; include "seguridad.php";
+    session_start();
+    if (isset($_SESSION['usuario'])) {
+        header("Location: ../juego/presiDice1.php");
+    }
+    filtro(true);
 
     $config = sacarConfig();
 
@@ -37,7 +42,7 @@
         <br></br>
 
         <label>Numero de colores</label>
-        <input type="number" name="ncolores" id="colores" min="4" max="8" value ="<?php echo $nColores ?>"></input>
+        <input type="number" name="ncolores" id="colores" min="4" max="8" value ="<?php echo $ncolores ?>"></input>
         
 
         <button type="submit">Enviar</button>

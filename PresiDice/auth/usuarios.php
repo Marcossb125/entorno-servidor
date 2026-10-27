@@ -1,4 +1,6 @@
-<?php include "bd.php"; include "cierre.php";
+<?php include "../privao/bd.php"; include "../privao/cierre.php";
+
+session_start();
     
 function guardarUsuario($nombre, $password) {
         $conexion = conectarBD();
@@ -38,19 +40,12 @@ function guardarUsuario($nombre, $password) {
             return false;
         }
 
-        $claveGuardada = $fila['Clave'];
-        if (password_verify($password, $claveGuardada)) {
-            return true;
-        }
-
-        if (hash_equals($claveGuardada, $password)) {
-            $stmt = $conexion->prepare(
-                "UPDATE usuarios SET Clave = :clave WHERE Nombre = :nom"
+        $hash = $fila['Clave'];
+        if (password_verify($password, $hash)) {
+            $_SESSION['usuario'] = array(
+                "nombre" => $fila['Nombre'],
+                "rol" => $fila['rol']
             );
-            $stmt->execute([
-                ':clave' => password_hash($password, PASSWORD_BCRYPT),
-                ':nom' => $nombre
-            ]);
             return true;
         }
 

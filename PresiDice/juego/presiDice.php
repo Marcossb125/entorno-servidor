@@ -33,7 +33,7 @@ $nColores=4;
 <body>
     
     <?php 
-    $colores = array("#0000FF", "#FF0000", "#00FF00", "#FFFF00", "#FFA500", "#FF69B4", "#800080", "#808080");
+    
     $colores2 = array("azul", "rojo", "verde", "amarillo", "naranja", "rosa", "púrpura", "gris");
     
     $colorCirculos = array(); 

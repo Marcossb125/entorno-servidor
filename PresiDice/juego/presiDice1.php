@@ -1,12 +1,20 @@
-<?php include "../privao/configuracion.php";
+<?php include "../privao/configuracion.php"; include "logica/pintar-circulos.php"; include "logica/inicializador.php";
 
-    $configuracion = sacarConfig();
+    session_start();
 
-    $ncirculos = $configuracion['ncirculos'];
-
-    $ncolores = $configuracion['ncolores'];
+    if (isset($_SESSION['estado'])) {
+        header("Location: presiDiceJugar.php");
+    }
 
     
+    if (!isset($_SESSION['combinacion'])) {
+        pintar_circulos($ncirculos, $ncolores);
+    }
+
+    if (isset($_POST['comenzar'])) {
+        inicio();
+        header("Location: presiDiceJugar.php");
+    }
 
 
 ?>
@@ -26,6 +34,28 @@
         <h1>WELCOME TO THE PRESIDENT MARK YISUS SAYS</h1>
 
         <p1>Memoriza la combinacion antes de continuar</p1>
+    
+
+    <br></br>
+        <?php if (isset($_SESSION['combinacion'])): ?>
+
+    <div class="circulos">
+    <?php foreach ($_SESSION['combinacion'] as $circulo): ?>
+
+        
+        <svg width="120" height="120">      
+        <circle cx="60" cy="60" r="50" fill="<?php echo $circulo; ?>" stroke="black" stroke-width="4"/>
+        </svg>
+    <?php endforeach; ?>
+
+    </div>
+
+    <br></br>
+
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <button name="comenzar">Comenzar</button>
+    </form>
+    <?php endif; ?>
     </div>
     
 </body>

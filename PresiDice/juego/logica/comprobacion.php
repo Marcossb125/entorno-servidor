@@ -4,6 +4,8 @@
 
        $combinacion = $_SESSION['combinacion'];
 
+       $_SESSION['estado'] = false;
+
        if ($combinacion === $jugada) {
             return true;
        }

@@ -1,10 +1,12 @@
 <?php include "usuarios.php";
-
+    if (isset($_SESSION['usuario'])) {
+        header("Location: ../juego/presiDice1.php");
+    }
         $err = "";
 
         if (isset($_POST['usuario'])) {
             if (revisarUsuario($_POST['usuario'], $_POST['password'])) {
-                header("Location: presiDice.php");
+                header("Location: ../juego/presiDice1.php");
                 exit;
             } else {
                 $err = "Nombre de usuario o contraseña incorrectos.";
@@ -20,7 +22,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="estilos.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../estilos.css">
 </head>
 <body>
     <div class="centrar"> 
