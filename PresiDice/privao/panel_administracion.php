@@ -1,9 +1,12 @@
 <?php include "configuracion.php"; include "seguridad.php";
     session_start();
-    if (isset($_SESSION['usuario'])) {
-        header("Location: ../juego/presiDice1.php");
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: ../auth/login.php");
+        exit;
     }
     filtro(true);
+
+    
 
     $config = sacarConfig();
 
@@ -16,6 +19,11 @@
 
         $circulos = $_POST['ncirculos'];
         $ncolores = $_POST['ncolores'];
+    }
+
+    if (isset($_POST['cerrar'])) {
+        session_destroy();
+        header("Location: ../auth/login.php");
     }
 
 ?>
@@ -54,6 +62,10 @@
         <label>Cookie color:</label>
         <input name="colorFondo" value=<?php echo isset($_COOKIE['color']) ? $_COOKIE['color'] : 'white'; ?>></input>
         <button type="submit">Cambiar</button>
+    </form>
+
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <button name="cerrar">Cerrar sesión</button>
     </form>
 
     </div>

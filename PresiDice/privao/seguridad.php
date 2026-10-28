@@ -1,15 +1,16 @@
 <?php 
 
     function filtro ($admin_requerido = false) {
-        $rol = $_SESSION['usuario']['rol'];
+        $rol = (int) $_SESSION['usuario']["rol"];
 
-        if ($rol === 1 && $admin_requerido) {
-            header("Location: panel_administracion.php");
+        if ($admin_requerido && $rol !== 1) {
+            header("Location: ../juego/presiDice1.php");
+            exit;
         }
 
-        if ($rol !== 1 && !$admin_requerido) {
-            header("Location: presiDice1.php");
+        if (!$admin_requerido && $rol === 1) {
+            header("Location: ../privao/panel_administracion.php");
+            exit;
         }
-
     }
 ?>

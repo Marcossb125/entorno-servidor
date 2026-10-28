@@ -1,10 +1,12 @@
 <?php
 session_start();
     if (!isset($_SESSION['estado'])) {
-        if ($_SESSION['estado'] === false) {
-            header("Location: resultado.php");
-        }
         header("Location: presiDice1.php");
+    }
+
+    if ($_SESSION['estado'] === false) {
+        header("Location: resultado.php");
+
     }
     var_dump($_SESSION);
 

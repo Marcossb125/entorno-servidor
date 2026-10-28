@@ -4,9 +4,9 @@
     if (isset($_POST['resetear'])) {
         resetear();
         header("Location: presiDice1.php");
-    } else if ($_POST['cerrar']) {
+    } else if (isset($_POST['cerrar'])) {
         session_destroy();
-        header("Location: login.php");
+        header("Location: ../auth/login.php");
     } else {
 
         if (!isset($_SESSION['estado'])) {
@@ -82,7 +82,7 @@
                 <button name="resetear">Volver a jugar</button>
             </form>
             <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                <button name="cerrarr">Cerrar sesión</button>
+                <button name="cerrar">Cerrar sesión</button>
             </form>
     </div>
 </body>

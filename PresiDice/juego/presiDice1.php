@@ -1,6 +1,14 @@
-<?php include "../privao/configuracion.php"; include "logica/pintar-circulos.php"; include "logica/inicializador.php";
+<?php include "../privao/configuracion.php"; include "logica/pintar-circulos.php"; include "logica/inicializador.php"; include "../privao/seguridad.php";
 
     session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: ../auth/login.php");
+        exit;
+    }
+    filtro();
+
+    var_dump($_SESSION);
 
     if (isset($_SESSION['estado'])) {
         header("Location: presiDiceJugar.php");

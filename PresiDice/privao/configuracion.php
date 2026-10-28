@@ -3,13 +3,16 @@
     function guardarConfig ($ncirculos, $ncolores) {
         $conexion = conectarBD();
 
-        $sql = "UPDATE config SET nCirculos = :ncirculos, nColores = :ncolores WHERE id=0";
+        $sql = "UPDATE config SET nCirculos = :ncirculos, nColores = :ncolores WHERE id=1";
 
+        
         $stmt = $conexion->prepare($sql);
         return $stmt->execute([
             ':ncirculos' => $ncirculos,
             ':ncolores' => $ncolores
         ]);
+
+        
 
        $conexion = cerrar($conexion);
     }
