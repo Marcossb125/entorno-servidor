@@ -1,4 +1,4 @@
-<?php include "logica/comprobacion.php"; include "logica/inicializador.php";
+<?php include "logica/comprobacion.php"; include "logica/inicializador.php"; include "../privao/jugadas.php";
     session_start();
 
     if (isset($_POST['resetear'])) {
@@ -13,8 +13,15 @@
             header("Location: presiDice1.php");
         } else if ($_SESSION['estado'] === true) {
             header("Location: presiDiceJugar.php");
+        } else if (isset($_POST['estadisticas'])) {
+            header("Location: estadisticas.php");
         } else {
             $victoria = comprobar();
+            if ($victoria) {
+                guardarJugada($_SESSION['usuario']['id'], 1);
+            } else {
+                guardarJugada($_SESSION['usuario']['id'], 0);
+            }
         }
     }
 ?>
@@ -80,6 +87,9 @@
 
             <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <button name="resetear">Volver a jugar</button>
+            </form>
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <button name="estadisticas">Estadisticas</button>
             </form>
             <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <button name="cerrar">Cerrar sesión</button>

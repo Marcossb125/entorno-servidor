@@ -9,3 +9,25 @@
 .circulos {
     flex-direction: row;
 }
+
+.tabla {
+    
+    border-collapse: collapse;
+}
+
+.tabla th, .tabla td {
+    border: 2px solid black;
+    padding: 10px;
+}
+
+.barra-aciertos-fondo {
+    width: 160px;
+    max-width: 25vw;
+    height: 18px;
+    background-color: white;
+}
+
+.barra-aciertos {
+    height: 100%;
+    background-color: #2f855a;
+}

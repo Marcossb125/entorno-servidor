@@ -28,7 +28,7 @@ function guardarUsuario($nombre, $password) {
 
     function revisarUsuario($nombre, $password) {
         $conexion = conectarBD();
-        $sql = "SELECT Clave, Nombre, Rol FROM usuarios WHERE Nombre = :nom";
+        $sql = "SELECT Codigo, Clave, Nombre, Rol FROM usuarios WHERE Nombre = :nom";
 
         $stmt = $conexion->prepare($sql);
         $stmt->execute([
@@ -44,6 +44,7 @@ function guardarUsuario($nombre, $password) {
         print($fila['Clave']);
         if (password_verify($password, $hash)) {
             $_SESSION['usuario'] = array(
+                "id" => $fila['Codigo'],
                 "nombre" => $fila['Nombre'],
                 "rol" => $fila['Rol']
             );
