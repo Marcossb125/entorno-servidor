@@ -1,0 +1,10 @@
+.centrar {
+    display: flex;
+    justify-content: center;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.error {
+    color:red;
+}
