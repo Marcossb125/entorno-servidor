@@ -8,21 +8,25 @@ if (!isset($_SESSION['emojisDispo'])) {
     $_SESSION['emojisDispo'] = emojisDisponibles($config['max_emojis']);
 }
 
-if (!isset($_SESSION['emojis'])) {
+if (!isset($_SESSION['emojis']) || $_SESSION['emojis'] === []) {
     $_SESSION['emojis'] = array();
     array_push($_SESSION['emojis'], emojiAleatorio($_SESSION['emojisDispo']));
 }
 
 
 if (isset($_POST['cambio_cantidad'])) {
-    $_SESSION['emojis'] = emojisDisponibles(count($_SESSION['emojis'])+1);
-    if (count($_SESSION['emojis']) > $max_lote) {
-        header('Location: agenda.php');
-    }
+    array_push($_SESSION['emojis'], emojiAleatorio($_SESSION['emojisDispo']));
+    
 }
+
+if (count($_SESSION['emojis']) >= $config['max_lote']) {
+        header('Location: agenda.php');
+        exit;
+    }
 
 if (isset($_POST['grabar'])) {
     header('Location: agenda.php');
+    exit;
 }
 
 ?>

@@ -67,7 +67,7 @@ CREATE TABLE `contactos` (
 CREATE TABLE `usuarios` (
   `codigo` int(11) NOT NULL,
   `nombre` varchar(20) NOT NULL,
-  `passwrd` varchar(255) NOT NULL,
+  `pwd` varchar(255) NOT NULL,
   `rol` tinyint(1) NOT NULL
 ) ;
 
@@ -75,7 +75,7 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`codigo`, `nombre`, `passwrd`, `rol`) VALUES
+INSERT INTO `usuarios` (`codigo`, `nombre`, `pwd`, `rol`) VALUES
 (257, 'RedReaper3', '$2y$10$sWyoYjo6uSe2TYbleq30Ouo0OxXNWd.x.9HM1shu0nU2OPJpiGWvq', 0),
 (258, 'Marcos', '$2y$10$dQ8PNdl.8liMjTyqZp7QY.hyUbcwCoFKAAojt5knp5psZqGHoMU2C', 1),
 (259, 'Marcoss', '$2y$10$nShpjCIEDS7qnfvHBFCoC.SR4sMgtxiP4nBt.OkSmKYHqZQInx3Fe', 1);

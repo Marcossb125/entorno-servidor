@@ -14,7 +14,7 @@ function guardarUsuario($nombre, $password) {
             throw new Exception("El nombre de usuario ya existe.");
         }
 
-        $sql2 = "INSERT INTO usuarios (nombre, passwrd, rol) VALUES (:nom, :pwd, :rol)";
+        $sql2 = "INSERT INTO usuarios (nombre, pwd, rol) VALUES (:nom, :pwd, :rol)";
 
         $stmt = $conexion->prepare($sql2);
         cerrar($conexion);
@@ -30,7 +30,7 @@ function guardarUsuario($nombre, $password) {
 
     function revisarUsuario($nombre, $password) {
         $conexion = conectarBD();
-        $sql = "SELECT codigo, passwrd, nombre, rol FROM usuarios WHERE nombre = :nom";
+        $sql = "SELECT codigo, pwd, nombre, rol FROM usuarios WHERE nombre = :nom";
 
         $stmt = $conexion->prepare($sql);
         $stmt->execute([
@@ -42,7 +42,7 @@ function guardarUsuario($nombre, $password) {
             return false;
         }
 
-        $hash = $fila['passwrd'];
+        $hash = $fila['pwd'];
         if (password_verify($password, $hash)) {
             $_SESSION['usuario'] = array(
                 "id" => $fila['codigo'],

@@ -1,17 +1,8 @@
 <?php require_once "configuracion.php";
     const EMOJIS = array('😀', '😂', '😍', '🥰', '😎', '🤔', '😭', '😡', '👍', '❤️');
 
-    $config = sacarConfig();
-
-    $max_lote = $config['max_lote'];
-
-    $max_emojis = $config['max_emojis'];
-
-    $max_contactos = $config['max_contactos'];
-
     function emojisDisponibles(int $num): array {
         $emojis = array();
-        echo $num;
         for ($k = 0; $k < $num; $k++) {
             array_push($emojis, EMOJIS[$k]);
         }
@@ -20,9 +11,8 @@
     }
 
     function emojiAleatorio(array $emojis): string {
-        rand(4, $max_emojis);
-
-        return $emojis[4];
+        $emoji = rand(0, count($emojis)-1);
+        return $emojis[$emoji];
     }
 
     function validarContacto(array $c): array {
@@ -32,7 +22,27 @@
     }
 
     function pintarFormularioContacto(int $i, string $emoji, array $valores, array $errores): string {
+        $erroresCampos = "";
+        $nombre = ($valores['nombre'] ?? '');
+        $apellidos = ($valores['apellidos'] ?? '');
+        $email = ($valores['email'] ?? '');
+        $telefono = ($valores['telefono'] ?? '');
 
+        foreach ($errores as $error) {
+            $erroresCampos = $erroresCampos + $error + "; ";
+        }
+        $html ='
+            <span> ' . $emoji  . ' </span> 
+            <div>
+                    <label>Nombre</label> <input name="contactos[' . $i . '][nombre]" value=" ' . $nombre . '" required></input>
+                    <label>Apellidos</label> <input name="contactos[' . $i . '][apellidos]" value=" ' . $apellidos . '" required></input>
+                    <br></br>
+                    <label>Email</label> <input name="contactos[' . $i . '][email]" value="' . $email . ' "required></input>
+                    <label>Telefono</label> <input name="contactos[' . $i . '][telefono]" value=" '. $telefono . ' "required></input>
+                    <p> ' . $erroresCampos . '</p>
+                    </div>';
+
+            return $html;
     }
 
 
