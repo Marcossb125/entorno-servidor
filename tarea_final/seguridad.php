@@ -3,6 +3,11 @@
 session_start();
 
     function filtro ($admin_requerido = false) {
+
+    if (!isset($_SESSION['usuario'])) {
+        header('Location: index.php');
+        exit;
+    }
         $rol = (int) $_SESSION['usuario']["rol"];
 
         if ($admin_requerido && $rol !== 1) {

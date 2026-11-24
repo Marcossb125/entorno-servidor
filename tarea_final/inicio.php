@@ -1,22 +1,28 @@
 <?php require_once "seguridad.php"; require_once "funciones.php"; require_once "configuracion.php";
 
-
-
 filtro();
 
 $config = sacarConfig();
 
+if (!isset($_SESSION['emojisDispo'])) {
+    $_SESSION['emojisDispo'] = emojisDisponibles($config['max_emojis']);
+}
+
 if (!isset($_SESSION['emojis'])) {
-$SESSION['emojisDispo'] = emojisDisponibles($config['max_emojis']);
+    $_SESSION['emojis'] = array();
+    array_push($_SESSION['emojis'], emojiAleatorio($_SESSION['emojisDispo']));
 }
 
 
 if (isset($_POST['cambio_cantidad'])) {
     $_SESSION['emojis'] = emojisDisponibles(count($_SESSION['emojis'])+1);
+    if (count($_SESSION['emojis']) > $max_lote) {
+        header('Location: agenda.php');
+    }
 }
 
 if (isset($_POST['grabar'])) {
-    print("funciona");
+    header('Location: agenda.php');
 }
 
 ?>
