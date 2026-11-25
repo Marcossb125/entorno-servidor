@@ -1,25 +1,31 @@
-<?php require_once "seguridad.php"; require_once "funciones.php"; require_once "configuracion.php";
+<?php declare(strict_types=1); require_once "seguridad.php"; require_once "funciones.php"; require_once "configuracion.php"; require_once "usuarios.php";
 
 filtro();
 
 $config = sacarConfig();
 
+if (!isset($_SESSION['contactos_restantes'])) {
+    $_SESSION['contactos_restantes'] = $config['max_contactos'] - sacarContactos($_SESSION['usuario']['id']);
+}
+
 if (!isset($_SESSION['emojisDispo'])) {
-    $_SESSION['emojisDispo'] = emojisDisponibles($config['max_emojis']);
+    $_SESSION['emojisDispo'] = emojisDisponibles((int)$config['max_emojis']);
 }
 
 if (!isset($_SESSION['emojis']) || $_SESSION['emojis'] === []) {
     $_SESSION['emojis'] = array();
     array_push($_SESSION['emojis'], emojiAleatorio($_SESSION['emojisDispo']));
+    $_SESSION['contactos_restantes']--;
 }
 
 
 if (isset($_POST['cambio_cantidad'])) {
     array_push($_SESSION['emojis'], emojiAleatorio($_SESSION['emojisDispo']));
+    $_SESSION['contactos_restantes']--;
     
 }
 
-if (count($_SESSION['emojis']) >= $config['max_lote']) {
+if (count($_SESSION['emojis']) >= $config['max_lote'] || $_SESSION['contactos_restantes'] <= 0) {
         header('Location: agenda.php');
         exit;
     }
@@ -58,6 +64,6 @@ if (isset($_POST['grabar'])) {
         <button name="grabar">Grabar</button>
     </form>
     <br></br>
-    <a href="cerrar_sesion.php">Cerrar sesión</a>
+    <a href="salir.php">Cerrar sesión</a>
 </body>
 </html>

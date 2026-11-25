@@ -1,11 +1,6 @@
-<?php require_once "configuracion.php"; require_once "seguridad.php"; require_once "usuarios.php";
-    if (!isset($_SESSION['usuario'])) {
-        header("Location: index.php");
-        exit;
-    }
+<?php declare(strict_types=1); require_once "configuracion.php"; require_once "seguridad.php"; require_once "usuarios.php";
 
     filtro(true);
-    //filtro(true);
 
     
 
@@ -52,7 +47,7 @@
     <div class="centrar">
     <h1>Bienvenido a la agenda de contactos, administrador *-*</h1>
 
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <form action="admin.php" method="post">
         <label>Contactos por lote (3,8)</label>
         <input type="number" name="max_lote" id="max_lote" min="3" value ="<?php echo $max_lote ?>" required></input>
 
@@ -72,7 +67,7 @@
      <br></br>
 
     
-    <a href="cerrar_sesion.php">Cerrar sesion</a>
+    <a href="salir.php">Cerrar sesion</a>
     <p class="error"><?php echo $err?></p>
         <div class="centrar">
         <table class="tabla">

@@ -11,6 +11,9 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE DATABASE IF NOT EXISTS `AGENDA` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `AGENDA`;
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,9 +32,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `configuracion` (
   `id` int(11) NOT NULL,
-  `max_lote` int(11) DEFAULT NULL,
-  `num_emojis` int(11) DEFAULT NULL,
-  `max_contactos` int(11) DEFAULT NULL
+  `max_lote` int(11) NOT NULL,
+  `num_emojis` int(11) NOT NULL,
+  `max_contactos` int(11) NOT NULL
 ) ;
 
 --
@@ -74,11 +77,11 @@ CREATE TABLE `usuarios` (
 --
 -- Volcado de datos para la tabla `usuarios`
 --
-
+-- Las contraseñas de los usuarios son todas 123
 INSERT INTO `usuarios` (`codigo`, `nombre`, `pwd`, `rol`) VALUES
-(257, 'RedReaper3', '$2y$10$sWyoYjo6uSe2TYbleq30Ouo0OxXNWd.x.9HM1shu0nU2OPJpiGWvq', 0),
-(258, 'Marcos', '$2y$10$dQ8PNdl.8liMjTyqZp7QY.hyUbcwCoFKAAojt5knp5psZqGHoMU2C', 1),
-(259, 'Marcoss', '$2y$10$nShpjCIEDS7qnfvHBFCoC.SR4sMgtxiP4nBt.OkSmKYHqZQInx3Fe', 1);
+(1, 'admin', '$2y$10$sWyoYjo6uSe2TYbleq30Ouo0OxXNWd.x.9HM1shu0nU2OPJpiGWvq', 1),
+(2, 'Marcos', '$2y$10$dQ8PNdl.8liMjTyqZp7QY.hyUbcwCoFKAAojt5knp5psZqGHoMU2C', 0),
+(3, 'RedReaper3', '$2y$10$nShpjCIEDS7qnfvHBFCoC.SR4sMgtxiP4nBt.OkSmKYHqZQInx3Fe', 0);
 
 --
 -- Índices para tablas volcadas

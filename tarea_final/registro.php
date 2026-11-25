@@ -1,15 +1,26 @@
-<?php include "usuarios.php";
+<?php declare(strict_types=1); require_once "usuarios.php";
+session_start();
 
-//if (isset($_SESSION['usuario'])) {}
+if (isset($_SESSION['usuario'])) {
+    header("Location: inicio.php"); 
+    exit;
+}
 
 $mensaje = "";
 
 if (isset($_POST['nombreR'], $_POST['password'])) {
     try {
-        if (guardarUsuario($_POST['nombreR'], password_hash($_POST['password'], PASSWORD_BCRYPT))) {
+        $nombre = trim($_POST['nombreR']);
+        $password = trim($_POST['password']);
+
+    if ($nombre === "" || $password === "") {
+        $mensaje = "Los campos no pueden estar vacíos.";
+    } else {
+        if (guardarUsuario($nombre, password_hash($password, PASSWORD_ARGON2ID))) {
             header("Location: inicio.php");
             exit;
         }
+    }
     } catch (Exception $e) {
         $mensaje = "No se pudo guardar el usuario";
     }
@@ -17,7 +28,7 @@ if (isset($_POST['nombreR'], $_POST['password'])) {
     
 ?>
 
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+<form action="registro.php" method="post">
     <label>Nombre</label>
     <input name="nombreR" required>
 

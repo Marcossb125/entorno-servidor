@@ -1,15 +1,21 @@
-<?php
+<?php declare(strict_types=1);
     session_start();
-    include "usuarios.php";
+    require_once "usuarios.php";
     if (isset($_SESSION['usuario'])) {
         header("Location: inicio.php");
         exit;
     }
         $err = "";
 
-        if (isset($_POST['usuario'])) {
+        if (isset($_POST['usuario'], $_POST['password'])) {
             if (revisarUsuario($_POST['usuario'], $_POST['password'])) {
-                header('Location: inicio.php');
+                if ((int) $_SESSION['usuario']['rol'] === 1) {
+                    header('Location: admin.php');
+                    exit;
+                } else {
+                    header('Location: inicio.php');
+                    exit;
+                }
             } else {
                 $err = "Nombre de usuario o contraseña incorrectos.";
             }
@@ -24,7 +30,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="estilos.css">
 </head>
 <body>
     <div class="centrar"> 
@@ -32,7 +37,7 @@
 
         <div>
 
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form action="index.php" method="post">
 
                 <label>Nombre de usuario</label>
                 <input id = "usuario" name="usuario"></input>
@@ -44,15 +49,13 @@
 
                 <br></br>
 
-                <input type="hidden" id = "origen" name="origen" value="erPresi"></input>
-
-                <button type="submit">Login</button>
+                <button type="submit">Entrar</button>
             </form>
             <?php if ($err != ""): ?>
                 <p style="color: red;"><?php echo $err; ?></p>
             <?php endif; ?>
 
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form action="index.php" method="post">
                 <button name="register">Registrarse</button>
             </form>
 
